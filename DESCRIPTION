@@ -1,16 +1,19 @@
 Package: stsci6520hw2
-Title: What the Package Does (One Line, Title Case)
+Title: OLS, Algorithmic Leveraging, and Elastic Net
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Steve",
+           family = "Broll",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "sb2643@cornell.edu")
+Description: Demonstration of R package creation using functions from Homework 1.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports:
+    MASS
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
