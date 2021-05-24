@@ -33,3 +33,9 @@ respectively, and the Beta values will be returned.
 algo_leverage fits linear regression models on subsets of data sampled by
 both uniform and leverage sampling
 }
+\examples{
+x = rt(500, 6)
+y = -x + rnorm(500)
+algo_leverage(x, y, subset_size = 100, num_sample = 500)
+algo_leverage(x, y, 100, method = 'leverage')
+}

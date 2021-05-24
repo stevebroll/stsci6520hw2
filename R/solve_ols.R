@@ -16,6 +16,13 @@
 #' @export
 #'
 #' @examples
+#' A = diag(1, nrow = 100)
+#' A[abs(row(A) -col(A)) == 1] = -1
+#' b = A%*%(rep(c(1,0), 50))
+#' solve_ols(A,b)
+#' solve_ols(A,b, method = 'jacobi', iter = 1000, ncores = 6)
+#'
+
 solve_ols <- function(A, b, method = 'gs', iter = 5000, ncores = NULL){
   n = ncol(A)
   x = rep(0,n)
@@ -38,12 +45,11 @@ solve_ols <- function(A, b, method = 'gs', iter = 5000, ncores = NULL){
     }
   }
   else if(method == 'parallel'){
-    require(doParallel)
     if(is.null(ncores)){
       ncores = as.numeric(Sys.getenv("NUMBER_OF_PROCESSORS"))
     }
 
-    cl <- makeCluster(ncores)
+    cl = makeCluster(ncores)
     registerDoParallel(cl)
     update = function(i,x){
       x[i] = (b[i] - A[i,-i]%*% x[-i])/(A[i,i])

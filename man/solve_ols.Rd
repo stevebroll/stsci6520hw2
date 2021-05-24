@@ -27,3 +27,11 @@ Numeric vector x, solution to Ax = b.
 solve_ols can use Gauss-Seidel (sequential), Jacobi, or Gauss-Seidel
 (parallel) to solve a system of equations Ax = b given A and b.
 }
+\examples{
+A = diag(1, nrow = 100)
+A[abs(row(A) -col(A)) == 1] = -1
+b = A\%*\%(rep(c(1,0), 50))
+solve_ols(A,b)
+solve_ols(A,b, method = 'jacobi', iter = 1000, ncores = 6)
+
+}

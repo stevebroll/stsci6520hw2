@@ -22,6 +22,10 @@
 #' @export
 #'
 #' @examples
+#' x = rt(500, 6)
+#' y = -x + rnorm(500)
+#' algo_leverage(x, y, subset_size = 100, num_sample = 500)
+#' algo_leverage(x, y, 100, method = 'leverage')
 algo_leverage <- function(x, y, subset_size,
                           num_sample = 500,
                           method = 'both'
