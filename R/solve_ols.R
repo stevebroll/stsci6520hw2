@@ -1,25 +1,43 @@
+#' Iterative solver for Linear Systems of Equations
+#'
+#' solve_ols can use Gauss-Seidel (sequential), Jacobi, or Gauss-Seidel
+#' (parallel) to solve a system of equations Ax = b given A and b.
+#'
+#' @param A Matrix with n rows and p columns
+#' @param b Vector of length n
+#' @param method Iterative method for solving Ax = b, either 'gs' for
+#' Gauss-Seidel (sequential), 'jacobi' for Jacobi (sequential), or
+#' 'parallel' for parallel Gauss-Seidel.
+#' @param iter Number of iterations for the solver.
+#' @param ncores Optionally set number of cores. If left empty, solve_ols will
+#' get the number of cores on the user's system and subtract 1.
+#'
+#' @return Numeric vector x, solution to Ax = b.
+#' @export
+#'
+#' @examples
 solve_ols <- function(A, b, method = 'gs', iter = 5000, ncores = NULL){
-  n = nrow(A)
+  n = ncol(A)
   x = rep(0,n)
   D = diag(diag(A))
   L = U = A
   U[upper.tri(U, diag = T)] = 0
   L[lower.tri(L, diag = T)] = 0
 
-  if(method = 'gs'){
+  if(method == 'gs'){
     LDinv = solve(L + D)
     for(i in 1:iter){
       x = LDinv %*% (b - U %*% x)
     }
   }
-  else if(method = 'jacobi'){
+  else if(method == 'jacobi'){
     LU = L + U
     Dinv = solve(D)
     for(i in 1:iter){
       x = Dinv%*%(b- (LU)%*%x)
     }
   }
-  else if(method = 'parallel'){
+  else if(method == 'parallel'){
     require(doParallel)
     if(is.null(ncores)){
       ncores = as.numeric(Sys.getenv("NUMBER_OF_PROCESSORS"))
