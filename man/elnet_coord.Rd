@@ -2,29 +2,29 @@
 % Please edit documentation in R/elnet_coord.R
 \name{elnet_coord}
 \alias{elnet_coord}
-\title{Title}
+\title{Elastic Net}
 \usage{
-elnet_coord(x, y, lambda, alpha, tol)
+elnet_coord(x, y, alpha, lambda = 0.1, tol = 1e-04)
 }
 \arguments{
 \item{x}{Predictor matrix x, with n rows and p columns}
 
 \item{y}{Response vector y, with n elements}
 
-\item{lambda}{Lasso tuning parameter}
-
 \item{alpha}{Elastic net alpha parameter. elastic net simplifies to Ridge
 regression under alpha = 0, and to Lasso regression under alpha = 1}
+
+\item{lambda}{Lasso tuning parameter}
 
 \item{tol}{Tolerance for convergence of betas. Algorithm will complete when
 the maximum change in beta values is smaller than the tol value}
 }
 \value{
-Matrix where each column is the p-length vector of beta estimates
-for one iteration
+Column vector of p Beta values from the elastic net algorithm.
 }
 \description{
-Title
+elnet_coord takes user-specified alpha and lambda values and fits an elastic
+net model using those parameters.
 }
 \examples{
 beta = c(2,0,-2,0,1,0,-1,rep(0,13))

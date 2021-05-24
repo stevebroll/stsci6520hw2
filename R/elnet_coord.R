@@ -1,4 +1,7 @@
-#' Title
+#' Elastic Net
+#'
+#' elnet_coord takes user-specified alpha and lambda values and fits an elastic
+#' net model using those parameters.
 #'
 #' @param x Predictor matrix x, with n rows and p columns
 #' @param y Response vector y, with n elements
@@ -8,8 +11,7 @@
 #' @param tol Tolerance for convergence of betas. Algorithm will complete when
 #' the maximum change in beta values is smaller than the tol value
 #'
-#' @return Matrix where each column is the p-length vector of beta estimates
-#' for one iteration
+#' @return Column vector of p Beta values from the elastic net algorithm.
 #' @export
 #'
 #' @examples

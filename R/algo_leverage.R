@@ -1,6 +1,31 @@
+#' Algorithmic Leveraging
+#'
+#' algo_leverage fits linear regression models on subsets of data sampled by
+#' both uniform and leverage sampling
+#'
+#' @param x Predictor matrix x, with n rows and p columns
+#' @param y Response vector y, with n elements
+#' @param subset_size Size of subset(s) on which regression model(s) will be fit
+#' @param num_sample Number of subsets to take when method = 'both'
+#' @param method One of 'both', 'uniform', or 'leverage'. 'both' will produce
+#' summary outputs for both uniform and leverage sampling over num_sample
+#' subsets, while 'uniform' and 'leverage' output one draw of estimated Betas
+#' for uniform and leverage sampling, respectively.
+#'
+#' @return When method = 'both' and X has 1 column, boxplots will be produced
+#' showing the distribution of betas from models fit on samples drawn using both
+#' uniform and leverage sampling. When method = 'both' and X has more than 1
+#' column, a line graph will compare the average values of each Beta for both
+#' uniform and leverage sampling. When method = 'uniform' or 'leverage', the
+#' model will be fit for one sample using uniform or leverage sampling,
+#' respectively, and the Beta values will be returned.
+#' @export
+#'
+#' @examples
 algo_leverage <- function(x, y, subset_size,
-                          method = 'both',
-                          num_sample = 500){
+                          num_sample = 500,
+                          method = 'both'
+                          ){
   x = as.matrix(x)
   n = nrow(x); p = ncol(x)
   r = subset_size
