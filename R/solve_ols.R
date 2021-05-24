@@ -1,13 +1,13 @@
 #' Iterative solver for Linear Systems of Equations
 #'
-#' solve_ols can use Gauss-Seidel (sequential), Jacobi, or Gauss-Seidel
+#' solve_ols can use Gauss-Seidel , Jacobi(sequential), or Jacobi
 #' (parallel) to solve a system of equations Ax = b given A and b.
 #'
 #' @param A Matrix with n rows and p columns
 #' @param b Vector of length n
 #' @param method Iterative method for solving Ax = b, either 'gs' for
 #' Gauss-Seidel (sequential), 'jacobi' for Jacobi (sequential), or
-#' 'parallel' for parallel Gauss-Seidel.
+#' 'parallel' for parallel Jacobi.
 #' @param iter Number of iterations for the solver.
 #' @param ncores Optionally set number of cores. If left empty, solve_ols will
 #' get the number of cores on the user's system and subtract 1.

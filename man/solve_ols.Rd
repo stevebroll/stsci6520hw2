@@ -13,7 +13,7 @@ solve_ols(A, b, method = "gs", iter = 5000, ncores = NULL)
 
 \item{method}{Iterative method for solving Ax = b, either 'gs' for
 Gauss-Seidel (sequential), 'jacobi' for Jacobi (sequential), or
-'parallel' for parallel Gauss-Seidel.}
+'parallel' for parallel Jacobi.}
 
 \item{iter}{Number of iterations for the solver.}
 
@@ -24,7 +24,7 @@ get the number of cores on the user's system and subtract 1.}
 Numeric vector x, solution to Ax = b.
 }
 \description{
-solve_ols can use Gauss-Seidel (sequential), Jacobi, or Gauss-Seidel
+solve_ols can use Gauss-Seidel , Jacobi(sequential), or Jacobi
 (parallel) to solve a system of equations Ax = b given A and b.
 }
 \examples{
