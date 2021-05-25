@@ -20,7 +20,7 @@
 #' A[abs(row(A) -col(A)) == 1] = -1
 #' b = A%*%(rep(c(1,0), 50))
 #' solve_ols(A,b)
-#' solve_ols(A,b, method = 'jacobi', iter = 1000, ncores = 6)
+#' solve_ols(A,b, method = 'parralel', iter = 1000, ncores = 6)
 #'
 
 solve_ols <- function(A, b, method = 'gs', iter = 5000, ncores = NULL){
@@ -57,8 +57,9 @@ solve_ols <- function(A, b, method = 'gs', iter = 5000, ncores = NULL){
     }
     for(j in 1:iter){
       x = as.numeric(foreach(i = 1:n) %dopar% {update(i,x)[i]})
-      stopCluster(cl)
     }
+    stopCluster(cl)
+
   }
   else{
     stop("Please choose method = 'gs', 'jacobi', or 'parallel'")
