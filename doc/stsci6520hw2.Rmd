@@ -1,0 +1,127 @@
+---
+title: "Using the Functions in the stsci6520 Package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{stsci6520hw2}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+  )
+```
+
+```{r setup}
+library(stsci6520hw2)
+```
+
+# `elnet_coord` 
+
+## Data generation
+
+```{r}
+beta = c(2,0,-2,0,1,0,-1,rep(0,13))
+covar = diag(1,20)
+covar[1,2] = covar[2,1] = covar[5,6] = covar[6,5] = .8
+x = MASS::mvrnorm(20, rep(0, 20), covar)
+y = x %*% beta + rnorm(20, 0, 1)
+```
+
+## Default Settings, alpha = 0, 0.5, 1
+
+```{r}
+alpha = c(0, 0.5, 1)
+for(a in alpha){
+  cat(paste('alpha = ', a, '\n'))
+  elfit = elnet_coord(x, y, alpha = a, lambda = 0.1, tol = 1e-04)
+  plot(elfit$Beta, ylab = 'Beta', main = paste('alpha = ', a, 'lambda = ', .1), type = 'l', ylim = c(-2,2))
+}
+```
+
+## Changing lambda and tolerance
+```{r}
+elfit = elnet_coord(x, y, alpha = .5, lambda = .01, tol = 1e-02)
+  plot(elfit$Beta, ylab = 'Beta', main = paste('alpha = ', .5, 'lambda = ', .01), type = 'l', ylim = c(-2,2))
+```
+
+# `algo_leverage`
+
+## Data Generation, x as Vector
+
+```{r}
+x = rt(500, 6)
+y = -x + rnorm(500)
+```
+
+## Default Settings with subset_size = 100
+```{r, fig.width = 6, fig.height = 4}
+algo_leverage(x, y, subset_size = 100, num_sample = 500, method = 'both')
+```
+
+## Output Betas from Single Run of Leverage Sampling
+
+```{r}
+algo_leverage(x, y, subset_size = 100, method = 'leverage')
+
+```
+
+```{r}
+algo_leverage(x, y, subset_size = 100, method = 'uniform')
+```
+
+## Data Generation, x as Matrix
+```{r}
+x = MASS::mvrnorm(500, mu = rep(0,5), Sigma = diag(1:5))
+beta = c(-2,0,2,0,1)
+y = x %*% beta + rnorm(500)
+```
+
+## Single Run comparison with subset_size = 50
+```{r, fig.width = 6, fig.height = 4}
+algo_leverage(x, y, subset_size = 50, num_sample = 1, method = 'both')
+
+```
+
+# `solve_ols`
+
+## Data Generation
+
+```{r}
+A = diag(2, nrow = 20)
+A[abs(row(A) -col(A)) == 1] = -1
+b = A%*%(0.5*1:20)
+```
+
+## Default Sequential Gauss-Seidel
+
+```{r}
+t(solve_ols(A, b, iter = 5000))
+```
+
+## Sequential Jacobi with 1000 iterations
+
+```{r}
+t(solve_ols(A, b, method = 'jacobi', iter = 1000))
+```
+
+## Sequential Jacobi with 1000 iterations
+
+```{r}
+t(solve_ols(A, b, method = 'jacobi', iter = 2000))
+```
+
+
+## Parallel Jacobi with 10 cores
+```{r, echo = F, message = F, warning=F}
+library(foreach); library(doParallel); library(parallel)
+```
+
+
+```{r}
+t(solve_ols(A, b, method = 'parallel', iter = 2000, ncores = 2))
+```
+
+
