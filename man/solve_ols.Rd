@@ -28,10 +28,10 @@ solve_ols can use Gauss-Seidel , Jacobi(sequential), or Jacobi
 (parallel) to solve a system of equations Ax = b given A and b.
 }
 \examples{
-A = diag(1, nrow = 100)
+A = diag(2, nrow = 20)
 A[abs(row(A) -col(A)) == 1] = -1
-b = A\%*\%(rep(c(1,0), 50))
+b = A\%*\%(0.5*1:20)
 solve_ols(A,b)
-solve_ols(A,b, method = 'jacobi', iter = 1000, ncores = 6)
+solve_ols(A,b, method = 'parallel', iter = 1000, ncores = 6)
 
 }

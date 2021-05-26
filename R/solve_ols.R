@@ -16,11 +16,11 @@
 #' @export
 #'
 #' @examples
-#' A = diag(1, nrow = 100)
+#' A = diag(2, nrow = 20)
 #' A[abs(row(A) -col(A)) == 1] = -1
-#' b = A%*%(rep(c(1,0), 50))
+#' b = A%*%(0.5*1:20)
 #' solve_ols(A,b)
-#' solve_ols(A,b, method = 'parralel', iter = 1000, ncores = 6)
+#' solve_ols(A,b, method = 'parallel', iter = 1000, ncores = 6)
 #'
 
 solve_ols <- function(A, b, method = 'gs', iter = 5000, ncores = NULL){
