@@ -32,6 +32,6 @@ A = diag(2, nrow = 20)
 A[abs(row(A) -col(A)) == 1] = -1
 b = A\%*\%(0.5*1:20)
 solve_ols(A,b)
-solve_ols(A,b, method = 'parallel', iter = 1000, ncores = 6)
+solve_ols(A,b, method = 'parallel', iter = 1000, ncores = 2)
 
 }

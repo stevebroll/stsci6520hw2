@@ -10,9 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  cache = T
-)
+  comment = "#>"
+  )
 ```
 
 ```{r setup}
@@ -122,7 +121,7 @@ library(foreach); library(doParallel); library(parallel)
 
 
 ```{r}
-t(solve_ols(A, b, method = 'parallel', iter = 2000, ncores = 10))
+t(solve_ols(A, b, method = 'parallel', iter = 2000, ncores = 2))
 ```
 
 
